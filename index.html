@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="http://example.com/myicon.png">
+  <title>To Do List with Angular</title>
+</head>
+<body ng-app="todoApp">
+  <div ng-controller="ListController as vm">
+
+    <h1>{{ vm.list.name }}</h1>
+    <button ng-click="vm.startAdd()" ng-show="!vm.isInAddMode()">ADD a TASK</button>
+  
+    <div ng-show="vm.isInAddMode()">
+      <input placeholder="task name" ng-model="vm.currentTask.name">
+      <button ng-click="vm.add()">+</button>
+    </div>
+
+    <div ng-repeat="task in vm.list.tasks | orderBy: '$index'">
+      <div ng-show="vm.isInReadMode(task.id)">
+        <p>
+          {{$index+1}}. {{task.name}} - completed: {{task.complete}}
+        </p>
+
+        <button ng-click="startEdit(task.id)">Edit</button>
+        <button ng-click="startRemove(task.id)">Delete</button> 
+      </div>
+    </div>
+
+    <div></div>
+
+
+  </div>
+
+
+    <script src="./js/angular.js"></script>
+    <script src="./js/app/app.js"></script>
+    <script src="./js/app/list/list.controller.js"></script>
+</body>
+</html>
