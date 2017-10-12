@@ -6,17 +6,23 @@
   <title>To Do List with Angular</title>
 </head>
 <body ng-app="todoApp">
+
   <div ng-controller="ListController as vm">
 
     <h1>{{ vm.list.name }}</h1>
+
+
     <button ng-click="vm.startAdd()" ng-show="!vm.isInAddMode()">ADD a TASK</button>
   
     <div ng-show="vm.isInAddMode()">
       <input placeholder="task name" ng-model="vm.currentTask.name">
-      <button ng-click="vm.add()">+</button>
+      <button ng-click="vm.add()">ADD</button>
     </div>
 
+
+
     <div ng-repeat="task in vm.list.tasks | orderBy: '$index'">
+
       <div ng-show="vm.isInReadMode(task.id)">
         <p>
           {{$index+1}}. {{task.name}} - completed: {{task.complete}}
@@ -25,9 +31,17 @@
         <button ng-click="startEdit(task.id)">Edit</button>
         <button ng-click="startRemove(task.id)">Delete</button> 
       </div>
-    </div>
+      
 
-    <div></div>
+      <div ng-show="vm.isInEditMode(task.id)">
+        <input placeholder="task name" ng-model="vm.currentTask.name">
+        <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="vm.currentTask.complete">
+
+        <button ng-click="vm.save()">Save</button>
+        <button ng-click="vm.cancel()">Cancel</button>
+      </div>
+
+    </div>
 
 
   </div>
@@ -38,3 +52,4 @@
     <script src="./js/app/list/list.controller.js"></script>
 </body>
 </html>
+
